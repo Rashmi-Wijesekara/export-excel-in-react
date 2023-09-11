@@ -4,12 +4,6 @@ import './App.css';
 const ExcelJS = require("exceljs");
 
 function App() {
-  const headerCellBorderStyle = {
-    top: { style: "thin", color: { argb: "black" } },
-    left: { style: "thin", color: { argb: "black" } },
-    bottom: { style: "thin", color: { argb: "black" } },
-    right: { style: "thin", color: { argb: "black" } },
-  };
 
   type TrainingProgressReportItemType = {
     EmployeeId: number;
