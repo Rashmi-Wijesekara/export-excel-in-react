@@ -1,143 +1,237 @@
-import { useEffect, useState } from 'react';
+import { Table } from 'react-bootstrap';
+import Button from 'react-bootstrap/Button';
 import './App.css';
-import { postRequest } from './client';
-import DocViewer, { DocViewerRenderers } from "@cyntler/react-doc-viewer";
-
-type reqBody = { Name: string; Id: number }
 
 function App() {
-  const [data, setData] = useState({ name: '', id: 0 })
 
-  const request = async () => {
-    const body = {
-      name: "Admin",
-      id: 100
-    }
-
-    const res = await postRequest(body)
-    setData(res)
+  type TrainingProgressReportItemType = {
+    EmployeeId: number;
+    LearnerName: string;
+    Location: string;
+    Organization: string;
+    EnrolledCourseCount: number;
+    AttendanceRate: number;
+    CompletedCourseCount: number;
+    InProgressCourseCount: number;
+    AbandonedCourseCount: number;
   }
 
-  // useEffect(() => {
-  //     // request()
-  // }, [])
-
-  const pdf = [
+  const trainingProgressDataList: TrainingProgressReportItemType[] = [
     {
-      uri: "https://cdn.filestackcontent.com/wcrjf9qPTCKXV3hMXDwK",
-      fileType: "pdf",
-      fileName: "123.pdf"
-    }
-  ]
-
-  const excel = [
+      EmployeeId: 1,
+      LearnerName: "John Doe",
+      Location: "New York",
+      Organization: "ABC Corp",
+      EnrolledCourseCount: 5,
+      AttendanceRate: 85,
+      CompletedCourseCount: 3,
+      InProgressCourseCount: 1,
+      AbandonedCourseCount: 1,
+    },
     {
-      uri: "https://www.w3resource.com/python-exercises/pandas/excel/SaleData.xlsx",
-      fileType: "xlsx",
-      fileName: "SaleData.xlsx"
-    }
-  ]
-
-  const ppt = [
+      EmployeeId: 2,
+      LearnerName: "Jane Smith",
+      Location: "Los Angeles",
+      Organization: "XYZ Inc",
+      EnrolledCourseCount: 8,
+      AttendanceRate: 92,
+      CompletedCourseCount: 6,
+      InProgressCourseCount: 1,
+      AbandonedCourseCount: 1,
+    },
     {
-      uri: "https://scholar.harvard.edu/files/torman_personal/files/samplepptx.pptx",
-      fileType: "pptx",
-      fileName: "samplepptx.pptx"
-    }
-  ]
-
-  const doc = [
+      EmployeeId: 3,
+      LearnerName: "Michael Johnson",
+      Location: "Chicago",
+      Organization: "LMN Ltd",
+      EnrolledCourseCount: 6,
+      AttendanceRate: 78,
+      CompletedCourseCount: 4,
+      InProgressCourseCount: 1,
+      AbandonedCourseCount: 1,
+    },
     {
-      uri: "https://calibre-ebook.com/downloads/demos/demo.docx",
-      fileType: "docx",
-      fileName: "demo.docx"
-    }
-  ]
+      EmployeeId: 4,
+      LearnerName: "Emily Davis",
+      Location: "San Francisco",
+      Organization: "PQR Co",
+      EnrolledCourseCount: 7,
+      AttendanceRate: 89,
+      CompletedCourseCount: 5,
+      InProgressCourseCount: 1,
+      AbandonedCourseCount: 1,
+    },
+    {
+      EmployeeId: 5,
+      LearnerName: "David Wilson",
+      Location: "Houston",
+      Organization: "JKL Enterprises",
+      EnrolledCourseCount: 4,
+      AttendanceRate: 75,
+      CompletedCourseCount: 2,
+      InProgressCourseCount: 1,
+      AbandonedCourseCount: 1,
+    },
+    {
+      EmployeeId: 6,
+      LearnerName: "Sarah Brown",
+      Location: "Miami",
+      Organization: "UVW Corp",
+      EnrolledCourseCount: 9,
+      AttendanceRate: 94,
+      CompletedCourseCount: 7,
+      InProgressCourseCount: 1,
+      AbandonedCourseCount: 1,
+    },
+    {
+      EmployeeId: 7,
+      LearnerName: "James Lee",
+      Location: "Seattle",
+      Organization: "RST Ltd",
+      EnrolledCourseCount: 6,
+      AttendanceRate: 80,
+      CompletedCourseCount: 4,
+      InProgressCourseCount: 1,
+      AbandonedCourseCount: 1,
+    },
+    {
+      EmployeeId: 8,
+      LearnerName: "Olivia Martinez",
+      Location: "Dallas",
+      Organization: "EFG Inc",
+      EnrolledCourseCount: 10,
+      AttendanceRate: 91,
+      CompletedCourseCount: 8,
+      InProgressCourseCount: 1,
+      AbandonedCourseCount: 1,
+    },
+    {
+      EmployeeId: 9,
+      LearnerName: "Ethan Turner",
+      Location: "Boston",
+      Organization: "HIJ Co",
+      EnrolledCourseCount: 7,
+      AttendanceRate: 87,
+      CompletedCourseCount: 5,
+      InProgressCourseCount: 1,
+      AbandonedCourseCount: 1,
+    },
+    {
+      EmployeeId: 10,
+      LearnerName: "Ava Clark",
+      Location: "Atlanta",
+      Organization: "NOP Enterprises",
+      EnrolledCourseCount: 5,
+      AttendanceRate: 84,
+      CompletedCourseCount: 3,
+      InProgressCourseCount: 1,
+      AbandonedCourseCount: 1,
+    },
+    {
+      EmployeeId: 11,
+      LearnerName: "Daniel Garcia",
+      Location: "Phoenix",
+      Organization: "MNO Corp",
+      EnrolledCourseCount: 6,
+      AttendanceRate: 88,
+      CompletedCourseCount: 4,
+      InProgressCourseCount: 1,
+      AbandonedCourseCount: 1,
+    },
+    {
+      EmployeeId: 12,
+      LearnerName: "Sophia Hernandez",
+      Location: "Denver",
+      Organization: "QWE Ltd",
+      EnrolledCourseCount: 7,
+      AttendanceRate: 93,
+      CompletedCourseCount: 5,
+      InProgressCourseCount: 1,
+      AbandonedCourseCount: 1,
+    },
+    {
+      EmployeeId: 13,
+      LearnerName: "William White",
+      Location: "Philadelphia",
+      Organization: "GHI Inc",
+      EnrolledCourseCount: 9,
+      AttendanceRate: 79,
+      CompletedCourseCount: 7,
+      InProgressCourseCount: 1,
+      AbandonedCourseCount: 1,
+    },
+    {
+      EmployeeId: 14,
+      LearnerName: "Mia Taylor",
+      Location: "Detroit",
+      Organization: "JKL Co",
+      EnrolledCourseCount: 8,
+      AttendanceRate: 82,
+      CompletedCourseCount: 6,
+      InProgressCourseCount: 1,
+      AbandonedCourseCount: 1,
+    },
+    {
+      EmployeeId: 15,
+      LearnerName: "Alexander Martinez",
+      Location: "San Diego",
+      Organization: "PQR Enterprises",
+      EnrolledCourseCount: 7,
+      AttendanceRate: 90,
+      CompletedCourseCount: 5,
+      InProgressCourseCount: 1,
+      AbandonedCourseCount: 1,
+    },
+  ];
+
+  const downloadHandler = () => {
+
+  }
 
   return (
-    <>
-      <div className="App">
-        <div className='doc-container'>
-          <div className="topic">Excel Sheet Viewer</div>
-          <DocViewer
-            pluginRenderers={DocViewerRenderers}
-            documents={excel}
-            config={{
-              header: {
-                disableHeader: true,
-                disableFileName: false,
-                retainURLParams: false
-              },
-              pdfVerticalScrollByDefault: true,
-            }}
-            theme={{
-              disableThemeScrollbar: false,
-            }}
-            style={{ width: "auto", height: "90%" }}
-          />
-        </div>
+    <div className="container">
+      <Button onClick={downloadHandler} className='my-4'>Download Report</Button>
+      <Table striped bordered hover>
+        <thead>
+          <tr className="table-header">
+            <th scope="col" className="table-heading-title">Emp. ID</th>
+            <th scope="col" className="table-heading-title">Learner Name</th>
+            <th scope="col" className="table-heading-title">Location</th>
+            <th scope="col" className="table-heading-title">Organization</th>
+            <th scope="col" className="table-heading-title">No. Of Courses Enrolled</th>
+            <th scope="col" className="table-heading-title">Attendance Rate</th>
+            <th scope="col" className="table-heading-title">Completed</th>
+            <th scope="col" className="table-heading-title">In Progress</th>
+            <th scope="col" className="table-heading-title">Abandoned</th>
 
-        <div className='doc-container'>
-          <div className="topic">PDF Viewer</div>
-          <DocViewer
-            pluginRenderers={DocViewerRenderers}
-            documents={pdf}
-            config={{
-              header: {
-                disableHeader: true,
-                disableFileName: false,
-                retainURLParams: false
-              },
-              pdfVerticalScrollByDefault: true,
-            }}
-            theme={{
-              disableThemeScrollbar: false,
-            }}
-            style={{ width: "auto", height: "90%" }}
-          />
-        </div>
+          </tr>
+        </thead>
 
-        <div className='doc-container'>
-          <div className="topic">PPT Viewer</div>
-          <DocViewer
-            pluginRenderers={DocViewerRenderers}
-            documents={ppt}
-            config={{
-              header: {
-                disableHeader: true,
-                disableFileName: false,
-                retainURLParams: false
-              },
-              pdfVerticalScrollByDefault: true,
-            }}
-            theme={{
-              disableThemeScrollbar: false,
-            }}
-            style={{ width: "auto", height: "90%" }}
-          />
-        </div>
+        <tbody className="table-body">
+          {
+            trainingProgressDataList.map(item => (
+              <tr id="table-row" key={item.EmployeeId}>
+                <td id="table-data">{item.EmployeeId}</td>
+                <td id="table-data1">
+                  <span>{item.LearnerName}</span>
+                </td>
+                <td id="table-data" className="">
+                  <i id="side-icon1" className="fa fa-map-marker fa-fw me-3 mr-2" aria-hidden="true"></i>
+                  <span>{item.Location}</span>
+                </td>
+                <td id="table-data">{item.Organization}</td>
+                <td id="table-data">{item.EnrolledCourseCount}</td>
+                <td id="table-data">{item.AttendanceRate}%</td>
+                <td id="table-data">{item.CompletedCourseCount}</td>
+                <td id="table-data">{item.InProgressCourseCount}</td>
+                <td id="table-data">{item.AbandonedCourseCount}</td>
+              </tr>
+            ))
+          }
 
-        <div className='doc-container'>
-          <div className="topic">DOC Viewer</div>
-          <DocViewer
-            pluginRenderers={DocViewerRenderers}
-            documents={doc}
-            config={{
-              header: {
-                disableHeader: true,
-                disableFileName: false,
-                retainURLParams: false
-              },
-              pdfVerticalScrollByDefault: true,
-            }}
-            theme={{
-              disableThemeScrollbar: false,
-            }}
-            style={{ width: "auto", height: "90%" }}
-          />
-        </div>
-      </div>
-    </>
+        </tbody>
+      </Table>
+    </div>
   );
 }
 
