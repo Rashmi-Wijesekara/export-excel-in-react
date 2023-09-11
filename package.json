@@ -12,6 +12,7 @@
     "@types/react": "^18.2.20",
     "@types/react-dom": "^18.2.7",
     "axios": "^1.4.0",
+    "exceljs": "^4.3.0",
     "jose": "^4.14.4",
     "jsencrypt": "^3.3.2",
     "react": "^18.2.0",
@@ -45,5 +46,5 @@
       "last 1 safari version"
     ]
   },
-  "proxy":"https://www.w3.org"
+  "proxy": "https://www.w3.org"
 }
